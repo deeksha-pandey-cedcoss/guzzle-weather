@@ -1,0 +1,61 @@
+<?php
+echo "  <style>
+        body {
+            background-image: url('../../../public/images/RS5V.gif');
+            background-repeat: repeat;
+        }
+    </style>";
+?>
+<h1>Astronomy</h1>
+<div class="row">
+    <span class="badge text-bg-primary">
+        <div class="text-bg-light p-3">
+            <h2 class="text-justify ">
+                <?php echo $data['location']['name'] . "," .
+                    $data['location']['region'] . "," . $data['location']['country'] ?>
+            </h2>
+        </div>
+</div>
+<br>
+<h4>Time:
+    <?php
+    echo $data['location']['localtime'];
+    ?>
+</h4>
+<h4>Latitude:
+    <?php
+    echo $data['location']['lat'];
+
+    ?>
+</h4>
+<h3>Longitude:
+    <?php
+    echo $data['location']['lon'];
+    ?>
+</h3>
+<h4>Sunrise:
+    <?php
+    echo $data['astronomy']['astro']['sunrise'];
+    ?>
+</h4>
+<h4>Sunset:
+    <?php
+    echo $data['astronomy']['astro']['sunset'];
+    ?>
+</h4>
+<h4>Moonrise:
+    <?php
+    echo $data['astronomy']['astro']['moonrise'];
+    ?>
+</h4>
+<h4>Moonset:
+    <?php
+    echo $data['astronomy']['astro']['moonset'];
+    ?>
+</h4>
+<h4>Moon-phase:
+    <?php
+    echo $data['astronomy']['astro']['moon_phase'];
+    ?>
+</h4>
+</span>

@@ -1,0 +1,75 @@
+<?php
+
+
+echo "  <style>
+        body {
+            background-image: url('../../../public/images/RS5V.gif');
+            background-repeat: repeat;
+        }
+    </style>";
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <span class="badge text-bg-primary">
+            <div class="text-bg-light p-3">
+                <h1 class="text-justify ">
+                    <?php echo $data['location']['name'] . "," .
+                        $data['location']['region'] . "," . $data['location']['country'] ?>
+                </h1>
+
+
+                <br>
+
+        </span>
+
+        <?php
+        echo "<div>";
+        foreach ($data as $key => $value) {
+            if ($key == "forecast") {
+                foreach ($value['forecastday'] as $value1) {
+                    # code...
+                    echo "  <div class='card' style='width: 18rem;'>
+            <img class='card-img-top' src='";
+                    echo $value1['day']['condition']['icon'];
+                    echo "'>";
+                    echo " <div class='card-body'>
+      <h5 class='card-title'>$value1[date]</h5>
+      <h6 class='card-subtitle mb-2 text-muted'>Maximum-Temp ";
+                    echo $value1['day'];
+                    echo "°C</h6>
+                  <p class='card-text'>";
+                    echo $value1['day']['condition']['text'];
+                    echo "<img src=";
+                    echo $value1['day']['condition']['icon'];
+                    echo ">";
+                    echo "</p>";
+
+
+                    echo " </div>
+  </div>";
+                }
+            }
+            echo " </div>
+  </div>";
+        }
+        echo "</div>";
+
+
+        ?>
+    </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>

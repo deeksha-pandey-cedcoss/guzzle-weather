@@ -7,8 +7,12 @@ use Phalcon\Mvc\Application;
 use Phalcon\Url;
 use Phalcon\Db\Adapter\Pdo\Mysql;
 use Phalcon\Config;
+use GuzzleHttp\Client;
 
 $config = new Config([]);
+
+require '../vendor/autoload.php';
+// require 'vendor/autoload.php';
 
 // Define some absolute path constants to aid in locating resources
 define('BASE_PATH', dirname(__DIR__));

@@ -9,7 +9,11 @@ RUN set -xe && \
     # Download PSR, see https://github.com/jbboehr/php-psr
     curl -LO https://github.com/jbboehr/php-psr/archive/v${PSR_VERSION}.tar.gz && \
     tar xzf ${PWD}/v${PSR_VERSION}.tar.gz && \
+   
+    #download guzzle
+    curl -sS https://getcomposer.org/installer | php
     # Download Phalcon
+
     curl -LO https://github.com/phalcon/cphalcon/archive/v${PHALCON_VERSION}.tar.gz && \
     tar xzf ${PWD}/v${PHALCON_VERSION}.tar.gz && \
     docker-php-ext-install -j $(getconf _NPROCESSORS_ONLN) \

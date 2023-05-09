@@ -1,0 +1,64 @@
+<?php
+if ($data['current']['condition']['text'] == "Sunny") {
+    echo "  <style>
+        body {
+            background-image: url('../../../public/images/sunny.gif');
+            background-repeat: repeat;
+            
+        }
+    </style>";
+} elseif ($data['current']['condition']['text'] == "Mist") {
+    echo "  <style>
+        body {
+            background-image: url('../../../public/images/mist.gif');
+            background-repeat: repeat;
+            background-size:cover;
+        }
+    </style>";
+} elseif ($data['current']['condition']['text'] == "Rainy") {
+    echo "  <style>
+        body {
+            background-image: url('../../../public/images/rainy.gif');
+            background-repeat: repeat;
+            background-size:cover;
+        }
+    </style>";
+} else {
+    echo "  <style>
+        body {
+            background-image: url('../../../public/images/1.gif');
+            background-repeat:repeat;
+            background-size:cover;
+
+           
+        }
+    </style>";
+}
+?>
+<div class="row">
+    <span class="badge text-bg-primary">
+        <div class="text-bg-danger p-3">
+            <h1 class="text-justify text-danger ">
+                <?php echo $data['location']['name'] . "," .
+                    $data['location']['region'] . "," . $data['location']['country'] ?>
+            </h1>
+        </div>
+</div>
+<br>
+<h3 class="text-justify text-danger ">
+    <?php
+    echo $data['current']['temp_c'] . "°C / " . $data['current']['temp_f'] . "°F  ";
+    ?>
+</h3>
+<h3 class="text-justify text-danger ">
+    <?php
+    echo $data['current']['condition']['text'];
+
+    ?>
+</h3>
+<h3 class="text-justify text-danger ">
+    <?php
+    echo $data['current']['last_updated'];
+    ?>
+</h3>
+</span>

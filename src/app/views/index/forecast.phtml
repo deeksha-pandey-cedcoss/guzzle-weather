@@ -1,0 +1,79 @@
+<?php
+if ($data['current']['condition']['text'] == "Sunny") {
+    echo "  <style>
+        body {
+            background-image: url('../../../public/images/sunny.gif');
+            background-repeat: repeat;
+        }
+    </style>";
+} elseif ($data['current']['condition']['text'] == "Mist") {
+    echo "  <style>
+        body {
+            background-image: url('../../../public/images/mist.gif');
+            background-repeat: repeat;
+        }
+    </style>";
+} elseif ($data['current']['condition']['text'] == "Rainy") {
+    echo "  <style>
+        body {
+            background-image: url('../../../public/images/rainy.gif');
+            background-repeat: repeat;
+        }
+    </style>";
+} else {
+    echo "  <style>
+   
+</style>";
+}
+?>
+<div class="row">
+    <span class="badge text-bg-primary">
+        <div class="text-bg-light p-3">
+            <h1 class="text-justify ">
+                <?php echo $data['location']['name'] . "," .
+                    $data['location']['region'] . "," . $data['location']['country'] ?>
+            </h1>
+        </div>
+</div>
+<br>
+<h3>
+    <?php
+    echo $data['current']['temp_c'] . "°C / " . $data['current']['temp_f'] . "°F  ";
+    ?>
+</h3>
+<h3>
+    <?php
+    echo $data['current']['condition']['text'];
+
+    ?>
+</h3>
+<h3>
+    <?php
+    echo $data['current']['last_updated'];
+    ?>
+</h3>
+</span>
+<?php
+foreach ($data as $key => $value) {
+    if ($key == "forecast") {
+        foreach ($value['forecastday'][0]['hour'] as $value1) {
+            # code...
+            echo "  <div class='card' style='width: 18rem;'>
+    <div class='card-body'>
+      <h5 class='card-title'>$value1[time]</h5>
+      <h6 class='card-subtitle mb-2 text-muted'>Maximum-Temp ";
+            echo $value1['temp_c'];
+            echo "°C</h6>
+                  <p class='card-text'>";
+            echo $value1['condition']['text'];
+            echo "<img src=";
+            echo $value1['condition']['icon'];
+            echo ">";
+            echo "</p>";
+            echo " </div>
+  </div>";
+        }
+    }
+}
+
+?>

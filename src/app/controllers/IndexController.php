@@ -1,41 +1,119 @@
 <?php
 
 use Phalcon\Mvc\Controller;
-// defalut controller view
+use GuzzleHttp\Client;
+
+
+
 class IndexController extends Controller
 {
     public function indexAction()
     {
+        // default action
+    }
+    public function getU($city, $type)
+    {
 
-        $url = "https://www.hindustantimes.com/feeds/rss/astrology/rssfeed.xml";
+        $client = new Client([
+            // Base URI is used with relative requests
+            'base_uri' => 'https://api.weatherapi.com',
+            // You can set any number of default request options.
+            'timeout'  => 10.0,
+        ]);
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, $url);
+        if ($type == "/history.json") {
+            $date = "2023-05-05";
+            $end = "2023-05-08";
+        $end = "/v1" . $type . "?key=0bab7dd1bacc418689b143833220304&q=" . $city . "&dt=" . $date . "&end_dt=" . $end;
+            $response = $client->request('GET', $end);
+            $res = json_decode($response->getBody(), true);
+            return $res;
+        } else {
+            $end = "/v1" . $type . "?key=0bab7dd1bacc418689b143833220304&q=" . $city . "&dt=" . $date;
+            $response = $client->request('GET', $end);
+            $res = json_decode($response->getBody(), true);
+            return $res;
+        }
+    }
 
-        $d = curl_exec($ch);
-        $xml = simplexml_load_string($d);
 
-        $this->view->xmldata = $xml;
+    public function searchAction()
+    {
+        $city = $this->request->getPost("city");
+        $type = $this->request->getPost("type");
 
-        $json = json_encode($xml);
-        $array = json_decode($json, true);
-        $this->view->xmlarray = $array;
+        if ($type == "/current.json") {
+            $this->response->redirect("index/current/?city=" . $city . "&&type=" . $type);
+        }
+        if ($type == "/forecast.json") {
+            $this->response->redirect("index/forecast/?city=" . $city . "&&type=" . $type);
+        }
+        if ($type == "/astronomy.json") {
+            $this->response->redirect("index/astronomy/?city=" . $city . "&&type=" . $type);
+        }
+        if ($type == "/sports.json") {
+            $this->response->redirect("index/sports/?city=" . $city . "&&type=" . $type);
+        }
+        if ($type == "/timezone.json") {
+            $this->response->redirect("index/timezone/?city=" . $city . "&&type=" . $type);
+        }
+        if ($type == "/history.json") {
+            $this->response->redirect("index/history/?city=" . $city . "&&type=" . $type);
+        }
+    }
+    public function currentAction()
+    {
 
-        curl_close($ch);
+        $city = $_GET['city'];
+        $type = $_GET['type'];
 
-        $u = "http://api.open-notify.org/iss-now.json";
+        $u = $this->getU($city, $type);
 
-        $ch = curl_init();
+        $this->view->data = $u;
+    }
+    public function forecastAction()
+    {
 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, $u);
+        $city = $_GET['city'];
+        $type = $_GET['type'];
 
-        $result = json_decode(curl_exec($ch), true);
-        curl_close($ch);
+        $u = $this->getU($city, $type);
+        $this->view->data = $u;
+    }
+    public function astronomyAction()
+    {
 
-        $this->view->data = $result;
+        $city = $_GET['city'];
+        $type = $_GET['type'];
 
-        $this->view->d = $result['iss_position'];
+        $u = $this->getU($city, $type);
+        $this->view->data = $u;
+    }
+    public function sportsAction()
+    {
+
+        $city = $_GET['city'];
+        $type = $_GET['type'];
+
+        $u = $this->getU($city, $type);
+        $this->view->data = $u;
+    }
+    public function timezoneAction()
+    {
+
+        $city = $_GET['city'];
+        $type = $_GET['type'];
+
+        $u = $this->getU($city, $type);
+        $this->view->data = $u;
+    }
+    public function historyAction()
+    {
+
+        $city = $_GET['city'];
+        $type = $_GET['type'];
+        $u = $this->getU($city, $type);
+
+        $this->view->data = $u;
     }
 }
